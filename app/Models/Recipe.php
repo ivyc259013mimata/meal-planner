@@ -16,4 +16,9 @@ class Recipe extends Model
     {
         return $this->belongsToMany(Ingredient::class, 'recipe_ingredient');
     }
+
+    public function mealPlans()
+    {
+        return $this->belongsToMany(MealPlan::class, 'meal_plan_recipe');
+    }
 }
