@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('recipes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->string('category');
-            $table->boolean('is_favorite')->default(false);
+            $table->id();   // 通し番号(PK)
+            $table->timestamps();// 作成・更新日時
+            $table->string('name');// レシピ名
+            $table->string('category');// カテゴリ
+            $table->boolean('is_favorite')->default(false);//お気に入りかどうか
         });
     }
 
