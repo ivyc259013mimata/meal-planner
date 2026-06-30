@@ -20,7 +20,8 @@ class RecipeController extends Controller
     public function store(Request $request)//新規登録
     {
         Recipe::create([
-            'name' => $request->name
+            'name' => $request->name,// フォームの「name」欄の値を、recipesテーブルのnameカラムに保存
+            'category' => $request->category,// フォームの「category」欄の値を、recipesテーブルのcategoryカラムに保存
         ]);
 
         session()->flash('message', 'レシピを保存しました');
