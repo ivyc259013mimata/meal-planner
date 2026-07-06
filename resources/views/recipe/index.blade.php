@@ -4,7 +4,7 @@
     <!-- 検索フォーム。getなので「見るだけ」の処理として送る -->
     <input type="text" name="search">
     <button type="submit">検索</button>
-<form>
+</form>
 
 @foreach ($recipes as $recipe)
 <!-- $recipes（複数のレシピ）を、1件ずつ繰り返して表示する -->
@@ -14,5 +14,13 @@
 
     <p>{{ $recipe->category}}</p>
     <!-- カテゴリを表示 -->
+
+    <a href="/recipe/{{ $recipe->id }}/edit">編集</a>
+
+    <form action="/recipe/{{ $recipe->id}}/delete" method="POST">
+        @csrf
+        {{-- /recipe/{id}/deleteにPOSTで送る --}}
+        <button type="submit">削除</button>
+    </form>
 
 @endforeach
