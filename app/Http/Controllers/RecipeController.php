@@ -12,7 +12,7 @@ class RecipeController extends Controller
         if($request->search != null) {
             $recipes = Recipe::where('name', 'like', '%' . $request->search . '%')->get();
         }else{
-            $recipes = Recipe::all();
+            $recipes = Recipe::all();//検索欄が空欄であれば全部表示
         }
         return view('recipe.index', compact('recipes'));
     }
