@@ -15,6 +15,10 @@
     <p>{{ $recipe->category}}</p>
     <!-- カテゴリを表示 -->
 
+    @foreach ($recipe->ingredients as $ingredient)
+    <span>{{ $ingredient->name }}</span>{{-- このレシピに紐づいてる材料を1つずつ表示 --}}
+    @endforeach
+
     <a href="/recipe/{{ $recipe->id }}/edit">編集</a>
 
     <form action="/recipe/{{ $recipe->id}}/delete" method="POST">

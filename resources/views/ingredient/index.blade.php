@@ -9,6 +9,6 @@
 
 @foreach ($ingredients as $ingredient)
 
-    <p> {{ $ingredient->name }}</p>
+    <p> {{ $ingredient->name }}</p><!-- 材料名を表示 -->
 @endforeach
     

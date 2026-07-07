@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 
 class RecipeController extends Controller
 {
@@ -19,11 +20,13 @@ class RecipeController extends Controller
 
     public function store(Request $request)//新規登録
     {
-        Recipe::create([
+        $recipe =Recipe::create([
             'name' => $request->name,// フォームの「name」欄の値を、recipesテーブルのnameカラムに保存
             'category' => $request->category,// フォームの「category」欄の値を、recipesテーブルのcategoryカラムに保存
         ]);
 
+        $recipe->ingredients()->sync($request->ingredients ?? []);// 選ばれた材料をrecipe_ingredientテーブルに保存する
+        
         session()->flash('message', 'レシピを保存しました');
 
         return redirect()->back();//連続登録
@@ -50,5 +53,11 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $recipe->delete();
         return redirect('/recipe');
+    }
+
+    public function create()
+    {
+        $ingredients = Ingredient::all();// DBから全材料を取り出して
+        return view('recipe.create', compact('ingredients'));// create画面に材料一覧を渡す
     }
 }
