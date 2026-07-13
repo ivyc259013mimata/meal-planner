@@ -19,4 +19,5 @@ Route::post('/recipe/{id}/delete', [RecipeController::class, 'destroy']);//å‰Šé™
 Route::get('/ingredient', [IngredientController::class, 'index']);
 Route::post('/ingredient/store', [IngredientController::class, 'store']);
 
+Route::get('/mealplan', [MealPlanController::class,'index']);
 Route::get('/mealplan/generate', [MealPlanController::class, 'generate']);

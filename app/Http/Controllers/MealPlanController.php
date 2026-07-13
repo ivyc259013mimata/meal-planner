@@ -23,4 +23,11 @@ class MealPlanController extends Controller
         }
         return redirect('/mealplan');
     }
+
+    public function index()
+    {
+        $mealPlans = MealPlan::with('recipes')->get();
+
+        return view('mealplan.index', compact('mealPlans'));
+    }
 }
