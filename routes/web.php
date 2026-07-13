@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\MealPlanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,3 +18,5 @@ Route::post('/recipe/{id}/delete', [RecipeController::class, 'destroy']);//å‰Šé™
 
 Route::get('/ingredient', [IngredientController::class, 'index']);
 Route::post('/ingredient/store', [IngredientController::class, 'store']);
+
+Route::get('/mealplan/generate', [MealPlanController::class, 'generate']);
