@@ -34,8 +34,9 @@ class RecipeController extends Controller
 
     public function edit($id)//編集画面表示
     {
-        $recipe = Recipe::find($id);
-        return view('recipe.edit', compact('recipe'));
+        $recipe = Recipe::find($id);// $idで指定されたレシピを1件取り出す
+        $ingredients = Ingredient::all();// DBから全材料を取り出して
+        return view('recipe.edit', compact('recipe', 'ingredients'));// edit画面にレシピと材料一覧を渡す
     }
 
     public function update(Request $request, $id)//更新
@@ -45,12 +46,15 @@ class RecipeController extends Controller
         $recipe->category = $request->category;
         $recipe->save();
 
+        $recipe->ingredients()->sync($request->ingredients);
+
         return redirect('/recipe');
     }
 
     public function destroy($id)//削除
     {
         $recipe = Recipe::find($id);
+        $recipe->ingredients()->detach();
         $recipe->delete();
         return redirect('/recipe');
     }

@@ -1,0 +1,7 @@
+ミールプランナー
+
+docker compose up -d(フォルダ開いた時に起動)
+
+中身の書き換え
+
+docker compose exec app php artisan migrate
