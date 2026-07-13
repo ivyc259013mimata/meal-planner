@@ -21,3 +21,4 @@ Route::post('/ingredient/store', [IngredientController::class, 'store']);
 
 Route::get('/mealplan', [MealPlanController::class,'index']);
 Route::get('/mealplan/generate', [MealPlanController::class, 'generate']);
+Route::get('/shoppinglist', [MealPlanController::class, 'shoppingList']);

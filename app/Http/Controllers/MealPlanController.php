@@ -24,10 +24,29 @@ class MealPlanController extends Controller
         return redirect('/mealplan');
     }
 
+    public function shoppingList()
+    {
+        $mealPlans = MealPlan::with('recipes.ingredients')->get();
+
+        $ingredients = $mealPlans->flatMap(function ($mealPlan) {
+            return $mealPlan->recipes->flatMap(function ($recipe) {
+                return $recipe->ingredients;
+            });
+        });
+
+        $shoppingList = $ingredients->groupBy('name')->map(function ($group) {
+            return $group->count();
+        });
+
+        return view('shoppinglist.index', compact('shoppingList'));
+    }
+
     public function index()
     {
         $mealPlans = MealPlan::with('recipes')->get();
 
         return view('mealplan.index', compact('mealPlans'));
     }
+
+    
 }
