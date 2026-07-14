@@ -1,0 +1,77 @@
+/* Google Fontsから、丸みのある優しい雰囲気の日本語フォントを読み込む */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap');
+
+:root {
+    /* デザインカンプの配色を、名前をつけて登録しておく */
+    --color-bg: #efe6d6;        /* 背景のクリーム色 */
+    --color-card: #faf7f0;      /* カードの少し明るいクリーム色 */
+    --color-accent: #c85a3e;    /* オレンジ（ボタンや強調に使う） */
+    --color-text: #3d2b1f;      /* 濃い茶色（本文の文字色） */
+    --color-text-muted: #9c8f7a;/* 薄い茶色（補助的な文字） */
+    --color-border: #e0d5c0;    /* カードの境界線色 */
+}
+
+/* 全部の要素に共通のリセット */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background-color: var(--color-bg);
+}
+
+.app-header__icon {
+    font-size: 24px;
+}
+
+.app-header__title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 20px;
+    color: var(--color-text);
+    flex-grow: 1;
+    margin-left: 8px;
+}
+
+.app-header__menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.app-nav {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-card);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.app-nav a {
+    padding: 14px 20px;
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 15px;
+}
+
+.app-nav a:last-child {
+    border-bottom: none;
+}
+
+.app-nav a:hover {
+    background-color: var(--color-bg);
+}
