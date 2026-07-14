@@ -15,7 +15,7 @@ class MealPlanController extends Controller
             $oldMealPlan->recipes()->detach();
             $oldMealPlan->delete();
         }
-        
+
         $days = ['月','火','水','木','金','土','日'];
 
         foreach ($days as $day) {
@@ -41,7 +41,11 @@ class MealPlanController extends Controller
         });
 
         $shoppingList = $ingredients->groupBy('name')->map(function ($group) {
-            return $group->count();
+            return [
+                'id' => $group->first()->id,
+                'count' => $group->count(),
+                'is_checked' => $group->first()->is_checked,
+            ];
         });
 
         return view('shoppinglist.index', compact('shoppingList'));

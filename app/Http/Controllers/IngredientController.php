@@ -21,4 +21,14 @@ class IngredientController extends Controller
         ]);
         return redirect('/ingredient');
     }
+
+    public function toggleChecked($id)
+    {
+        $ingredient = Ingredient::find($id);
+
+        $ingredient->is_checked = !$ingredient->is_checked;
+        $ingredient->save();
+
+        return redirect('/shoppinglist');
+    }
 }
