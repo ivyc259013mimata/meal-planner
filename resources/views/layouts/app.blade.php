@@ -8,9 +8,9 @@
 </head>
 <body>
     <header class="app-header">
+        <button class="app-header__menu-btn" id="menuBtn">≡</button>
         <span class="app-header__icon">🍴</span>
         <h1 class="app-header__title">@yield('title','献立プランナー')</h1>
-        <button class="app-header__menu-btn" id="menuBtn">≡</button>
     </header>
     
     <nav class="app-nav" id="appNav">
@@ -24,5 +24,13 @@
         @yield('content')
     </main>
 
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const appNav = document.getElementById('appNav');
+
+        menuBtn.addEventListener('click',function() {
+            appNav.classList.toggle('is-open');
+        });
+    </script>
 </body>
 </html>

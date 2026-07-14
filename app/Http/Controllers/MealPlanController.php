@@ -10,6 +10,12 @@ class MealPlanController extends Controller
 {
     public function generate()
     {
+        $oldMealPlans= MealPlan::all();
+        foreach ($oldMealPlans as $oldMealPlan) {
+            $oldMealPlan->recipes()->detach();
+            $oldMealPlan->delete();
+        }
+        
         $days = ['月','火','水','木','金','土','日'];
 
         foreach ($days as $day) {

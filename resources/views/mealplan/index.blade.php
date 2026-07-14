@@ -4,14 +4,29 @@
 
 @section('content')
 
-    @foreach ($mealPlans as $mealPlan)
-        <div>
-            <h2>{{ $mealPlan->day_of_week }}曜日</h2>
+    <a href="/mealplan/generate" class="btn-primary">
+        ↻ 1週間分を自動生成する
+    </a>
 
-            @foreach ($mealPlan->recipes as $recipe)
-                <p>{{ $recipe->name }}</p>
-            @endforeach
-        </div>
-    @endforeach
+    <h2 class="section-label">今週の献立</h2>
+
+    <div class ="meal-list">
+        @foreach ($mealPlans as $mealPlan)
+            <div class="meal-card">
+                <span class="meal-card__day">{{ $mealPlan->day_of_week }}</span>
+
+                @foreach ($mealPlan->recipes as $recipe)
+                    <span class="meal-card__thumb">
+                        <img src="{{ asset('images/curry.png') }}" alt="{{ $recipe->name }}">
+                    </span>
+                    <span class="meal-card__name">{{ $recipe->name }}</span>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+
+    <a href="/shoppinglist" class="btn-outline">
+        🛒 買い物リストを見る
+    </a>
 
 @endsection
