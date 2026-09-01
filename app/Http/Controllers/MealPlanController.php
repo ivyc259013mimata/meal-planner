@@ -10,7 +10,8 @@ class MealPlanController extends Controller
 {
     public function generate()
     {
-        $oldMealPlans= MealPlan::all();
+        // 既存の献立プランを全部消す（前回と同じ、重複防止のため）
+        $oldMealPlans = MealPlan::all();
         foreach ($oldMealPlans as $oldMealPlan) {
             $oldMealPlan->recipes()->detach();
             $oldMealPlan->delete();
@@ -19,14 +20,28 @@ class MealPlanController extends Controller
         $days = ['月','火','水','木','金','土','日'];
 
         foreach ($days as $day) {
-            //その曜日の献立プランを１件作る
             $mealPlan = MealPlan::create([
                 'day_of_week' => $day,
             ]);
 
-            $randomRecipe = Recipe::inRandomOrder()->first();
-            $mealPlan->recipes()->attach($randomRecipe->id);
+            // その日のジャンルを、和食・洋食からランダムに1つ決める
+            $genre = collect(['和食', '洋食'])->random();
+
+            // 決まったジャンルの中から、主菜を1つランダムに選ぶ
+            $main = Recipe::where('category', $genre)->where('dish_type', '主菜')->inRandomOrder()->first();
+
+            // 同じジャンルの中から、副菜を1つランダムに選ぶ
+            $side = Recipe::where('category', $genre)->where('dish_type', '副菜')->inRandomOrder()->first();
+
+            // 見つかったものだけ、献立プランに紐づける
+            if ($main) {
+                $mealPlan->recipes()->attach($main->id);
+            }
+            if ($side) {
+                $mealPlan->recipes()->attach($side->id);
+            }
         }
+
         return redirect('/mealplan');
     }
 

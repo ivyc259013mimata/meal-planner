@@ -6,6 +6,15 @@
     <button type="submit">検索</button>
 </form>
 
+<div class="category-tabs">
+    <a href="/recipe" class="category-tab {{ request('category') == null ? 'is-active' : ''}}">すべて</a>
+    <a href="/recipe?category=和食" class="category-tab {{ request('category') == '和食' ? 'is-active' : '' }}">和食</a>
+    <a href="/recipe?category=洋食" class="category-tab {{ request('category') == '洋食' ? 'is-active' : '' }}">洋食</a>
+    <a href="/recipe?category=主菜" class="category-tab {{ request('category') == '主菜' ? 'is-active' : '' }}">主菜</a>
+    <a href="/recipe?category=副菜" class="category-tab {{ request('category') == '副菜' ? 'is-active' : '' }}">副菜</a>
+</div>
+
+
 @foreach ($recipes as $recipe)
 <!-- $recipes（複数のレシピ）を、1件ずつ繰り返して表示する -->
 

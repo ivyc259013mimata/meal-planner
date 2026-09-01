@@ -10,11 +10,18 @@ class RecipeController extends Controller
 {
     public function index(Request $request)//一覧・検索
     {
+        $query = Recipe::query();
+
         if($request->search != null) {
-            $recipes = Recipe::where('name', 'like', '%' . $request->search . '%')->get();
-        }else{
-            $recipes = Recipe::all();//検索欄が空欄であれば全部表示
+            $query->where('name', 'like', '%' . $request->search . '%');
         }
+
+        if($request->category != null && $request->category != 'すべて') {
+            $query->where('category', $request->category);
+        }
+
+        $recipes = $query->get();
+
         return view('recipe.index', compact('recipes'));
     }
 
@@ -23,6 +30,7 @@ class RecipeController extends Controller
         $recipe =Recipe::create([
             'name' => $request->name,// フォームの「name」欄の値を、recipesテーブルのnameカラムに保存
             'category' => $request->category,// フォームの「category」欄の値を、recipesテーブルのcategoryカラムに保存
+            'dish_type' => $request->dish_type,// フォームの「dish_type」欄の値を、recipesテーブルのdish_typeカラムに保存
         ]);
 
         $recipe->ingredients()->sync($request->ingredients ?? []);// 選ばれた材料をrecipe_ingredientテーブルに保存する
@@ -44,6 +52,7 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $recipe->name = $request->name;
         $recipe->category = $request->category;
+        $recipe->dish_type = $request->dish_type;
         $recipe->save();
 
         $recipe->ingredients()->sync($request->ingredients);

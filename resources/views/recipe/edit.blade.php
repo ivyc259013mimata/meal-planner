@@ -10,6 +10,13 @@
         <input type="text" name="category" value="{{ $recipe->category}}">
     </div>
     <div>
+        <label>種類</label>
+        <select name="dish_type">
+            <option value="主菜" {{ $recipe->dish_type == '主菜' ? 'selected' : '' }}>主菜</option>
+            <option value="副菜" {{ $recipe->dish_type == '副菜' ? 'selected' : '' }}>副菜</option>
+        </select>
+    </div>
+    <div>
         <label>材料</label>
         @foreach($ingredients as $ingredient)
             <label>

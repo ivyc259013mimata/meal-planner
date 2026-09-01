@@ -218,3 +218,15 @@ body {
     font-size: 14px;
     color: var(--color-text-muted);
 }
+.meal-card__dishes {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.meal-card__dish {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

@@ -9,6 +9,13 @@
         <input type="text" name="category">
     </div>
     <div>
+        <label>種類</label>
+        <select name="dish_type">
+            <option value="主菜">主菜</option>
+            <option value="副菜">副菜</option>
+        </select>
+    </div>
+    <div>
         <label>材料</label>
         @foreach ($ingredients as $ingredient)
             <div>
