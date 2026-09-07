@@ -12,12 +12,16 @@ class RecipeController extends Controller
     {
         $query = Recipe::query();
 
-        if($request->search != null) {
+        if ($request->search != null) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        if($request->category != null && $request->category != 'すべて') {
+        if ($request->category != null) {
             $query->where('category', $request->category);
+        }
+
+        if ($request->dish_type != null) {
+            $query->where('dish_type', $request->dish_type);
         }
 
         $recipes = $query->get();
