@@ -335,3 +335,97 @@ body {
     background-color: var(--color-accent);
     color: #ffffff;
 }
+
+.ingredient-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ingredient-tag {
+    cursor: pointer;
+}
+
+.ingredient-tag__checkbox {
+    display: none;
+}
+
+.ingredient-tag__label {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-card);
+    color: var(--color-text-muted);
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.ingredient-tag:hover .ingredient-tag__label {
+    border-color: var(--color-accent);
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+}
+
+.ingredient-tag__checkbox:checked + .ingredient-tag__label {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #ffffff;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px 24px;
+    background-color: var(--color-card);
+    border-radius: 16px;
+}
+
+.form-card > form > div > label {
+    display: block;
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-card > form > div {
+    margin-bottom: 20px;
+}
+
+.form-card input[type="text"],
+.form-card select {
+    width: 100%;
+    max-width: 400px; 
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-save {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 14px;
+    border: none;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-radius: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
