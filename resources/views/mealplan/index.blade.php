@@ -16,7 +16,7 @@
                 <span class="meal-card__day">{{ $mealPlan->day_of_week }}</span>
 
                 <div class="meal-card__dishes">
-                    @foreach ($mealPlan->recipes->sortByDesc('dish_type') as $recipe)
+                    @foreach ($mealPlan->recipes->sortBy('dish_type') as $recipe)
                         <div class="meal-card__dish">
                             <span class="meal-card__thumb">
                                 <img src="{{ asset('images/curry.png') }}" alt="{{ $recipe->name }}">
