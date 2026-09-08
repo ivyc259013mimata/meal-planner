@@ -29,19 +29,38 @@ class RecipeController extends Controller
         return view('recipe.index', compact('recipes'));
     }
 
-    public function store(Request $request)//新規登録
+    public function store(Request $request)
     {
-        $recipe =Recipe::create([
-            'name' => $request->name,// フォームの「name」欄の値を、recipesテーブルのnameカラムに保存
-            'category' => $request->category,// フォームの「category」欄の値を、recipesテーブルのcategoryカラムに保存
-            'dish_type' => $request->dish_type,// フォームの「dish_type」欄の値を、recipesテーブルのdish_typeカラムに保存
+        $request->validate([
+            'ingredients' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'dish_type' => 'required',
         ]);
 
-        $recipe->ingredients()->sync($request->ingredients ?? []);// 選ばれた材料をrecipe_ingredientテーブルに保存する
-        
+        $recipe = Recipe::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'dish_type' => $request->dish_type,
+        ]);
+
+        // 新規タグを、実際の材料として登録し直しつつ、idだけの配列を作る
+        $ingredientIds = collect($request->ingredients)->map(function ($value) {
+            if (str_starts_with($value, 'new:')) {
+                // "new:"を取り除いて、材料名だけを取り出す
+                $name = str_replace('new:', '', $value);
+                // 同じ名前があればそれを使い、なければ新しく作る
+                $ingredient = Ingredient::firstOrCreate(['name' => $name]);
+                return $ingredient->id;
+            }
+            return $value;
+        });
+
+        $recipe->ingredients()->sync($ingredientIds);
+
         session()->flash('message', 'レシピを保存しました');
 
-        return redirect()->back();//連続登録
+        return redirect()->back();
     }
 
     public function edit($id)//編集画面表示
