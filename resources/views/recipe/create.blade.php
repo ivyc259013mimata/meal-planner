@@ -5,38 +5,42 @@
 @section('content')
 
 <div class="form-card">
-    @if ($errors->any())
-    <div class="error-messages">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
     <form action="/recipe/store" method="POST">
         @csrf
         <div>
             <label>レシピ名</label>
             <input type="text" name="name" required>
+            @error('name')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
         <div>
             <label>ジャンル</label>
-            <select name="category" required>
+            <select name="category">
                 <option value="和食">和食</option>
                 <option value="洋食">洋食</option>
+                <option value="中華">中華</option>
             </select>
+            @error('category')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
         <div>
             <label>種類</label>
-            <select name="dish_type" required>
+            <select name="dish_type">
                 <option value="主菜">主菜</option>
                 <option value="副菜">副菜</option>
             </select>
+            @error('dish_type')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
-
         <div>
             <label>材料</label>
+
+            @error('ingredients')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
             <div class="ingredient-search">
                 <input type="text" id="ingredientSearch" placeholder="材料名で検索">
@@ -55,6 +59,8 @@
                 <span id="ingredientNotFoundText"></span>が見つかりません。
                 <button type="button" id="ingredientAddBtn" class="btn-add-ingredient">＋ 新しい材料として追加</button>
             </div>
+
+
         </div>
         <button type="submit" class="btn-save">保存</button>
     </form>
@@ -86,6 +92,17 @@
             notFoundArea.style.display = 'block';
             notFoundText.textContent = keyword;
         } else {
+            notFoundArea.style.display = 'none';
+        }
+    });
+
+    // 材料タグがクリックされたとき（チェックが変化したとき）の処理
+    ingredientTags.addEventListener('change', function (event) {
+        if (event.target.classList.contains('ingredient-tag__checkbox')) {
+            ingredientSearch.value = '';
+            ingredientTags.querySelectorAll('.ingredient-tag').forEach(function (tag) {
+                tag.style.display = 'inline-flex';
+            });
             notFoundArea.style.display = 'none';
         }
     });

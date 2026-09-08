@@ -36,6 +36,11 @@ class RecipeController extends Controller
             'name' => 'required',
             'category' => 'required',
             'dish_type' => 'required',
+        ], [
+            'ingredients.required' => '材料を1つ以上選択してください。',
+            'name.required' => 'レシピ名を入力してください。',
+            'category.required' => 'ジャンルを選択してください。',
+            'dish_type.required' => '種類を選択してください。',
         ]);
 
         $recipe = Recipe::create([
@@ -72,6 +77,18 @@ class RecipeController extends Controller
 
     public function update(Request $request, $id)//更新
     {
+        $request->validate([
+            'ingredients' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'dish_type' => 'required',
+        ], [
+            'ingredients.required' => '材料を1つ以上選択してください。',
+            'name.required' => 'レシピ名を入力してください。',
+            'category.required' => 'ジャンルを選択してください。',
+            'dish_type.required' => '種類を選択してください。',
+        ]);
+
         $recipe = Recipe::find($id);
         $recipe->name = $request->name;
         $recipe->category = $request->category;

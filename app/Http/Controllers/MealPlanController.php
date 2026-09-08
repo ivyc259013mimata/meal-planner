@@ -24,8 +24,8 @@ class MealPlanController extends Controller
                 'day_of_week' => $day,
             ]);
 
-            // その日のジャンルを、和食・洋食からランダムに1つ決める
-            $genre = collect(['和食', '洋食'])->random();
+            // その日のジャンルを、和食・洋食・中華からランダムに1つ決める
+            $genre = collect(['和食', '洋食', '中華'])->random();
 
             // 決まったジャンルの中から、主菜を1つランダムに選ぶ
             $main = Recipe::where('category', $genre)->where('dish_type', '主菜')->inRandomOrder()->first();

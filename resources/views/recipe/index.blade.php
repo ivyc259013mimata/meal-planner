@@ -13,6 +13,7 @@
         <a href="/recipe" class="category-tab {{ request('category') == null && request('dish_type') == null ? 'is-active' : '' }}">すべて</a>
         <a href="/recipe?category=和食" class="category-tab {{ request('category') == '和食' ? 'is-active' : '' }}">和食</a>
         <a href="/recipe?category=洋食" class="category-tab {{ request('category') == '洋食' ? 'is-active' : '' }}">洋食</a>
+        <a href="/recipe?category=中華" class="category-tab {{ request('category') == '中華' ? 'is-active' : '' }}">中華</a>
         <a href="/recipe?dish_type=主菜" class="category-tab {{ request('dish_type') == '主菜' ? 'is-active' : '' }}">主菜</a>
         <a href="/recipe?dish_type=副菜" class="category-tab {{ request('dish_type') == '副菜' ? 'is-active' : '' }}">副菜</a>
     </div>

@@ -4,29 +4,26 @@
 
 @section('content')
 
-    @if ($errors->any())
-        <div class="error-messages">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div class="form-card">
         <form action="/recipe/{{ $recipe->id }}/update" method="POST">
             @csrf
             <div>
                 <label>レシピ名</label>
                 <input type="text" name="name" value="{{ $recipe->name }}" required>
+                @error('name')
+                    <p class="field-error">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label>ジャンル</label>
                 <select name="category">
                     <option value="和食" {{ $recipe->category == '和食' ? 'selected' : '' }}>和食</option>
                     <option value="洋食" {{ $recipe->category == '洋食' ? 'selected' : '' }}>洋食</option>
+                    <option value="中華" {{ $recipe->category == '中華' ? 'selected' : '' }}>中華</option>
                 </select>
+                @error('category')
+                    <p class="field-error">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label>種類</label>
@@ -34,9 +31,16 @@
                     <option value="主菜" {{ $recipe->dish_type == '主菜' ? 'selected' : '' }}>主菜</option>
                     <option value="副菜" {{ $recipe->dish_type == '副菜' ? 'selected' : '' }}>副菜</option>
                 </select>
+                @error('dish_type')
+                    <p class="field-error">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label>材料</label>
+
+                @error('ingredients')
+                    <p class="field-error">{{ $message }}</p>
+                @enderror
 
                 <div class="ingredient-search">
                     <input type="text" id="ingredientSearch" placeholder="材料名で検索">
@@ -56,6 +60,8 @@
                     <span id="ingredientNotFoundText"></span>が見つかりません。
                     <button type="button" id="ingredientAddBtn" class="btn-add-ingredient">＋ 新しい材料として追加</button>
                 </div>
+
+
             </div>
             <button type="submit" class="btn-save">更新</button>
         </form>
@@ -87,6 +93,17 @@
                 notFoundArea.style.display = 'block';
                 notFoundText.textContent = keyword;
             } else {
+                notFoundArea.style.display = 'none';
+            }
+        });
+
+        // 材料タグがクリックされたとき（チェックが変化したとき）の処理
+        ingredientTags.addEventListener('change', function (event) {
+            if (event.target.classList.contains('ingredient-tag__checkbox')) {
+                ingredientSearch.value = '';
+                ingredientTags.querySelectorAll('.ingredient-tag').forEach(function (tag) {
+                    tag.style.display = 'inline-flex';
+                });
                 notFoundArea.style.display = 'none';
             }
         });
