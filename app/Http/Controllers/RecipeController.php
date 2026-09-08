@@ -78,7 +78,17 @@ class RecipeController extends Controller
         $recipe->dish_type = $request->dish_type;
         $recipe->save();
 
-        $recipe->ingredients()->sync($request->ingredients);
+        // 新規タグを、実際の材料として登録し直しつつ、idだけの配列を作る
+        $ingredientIds = collect($request->ingredients)->map(function ($value) {
+            if (str_starts_with($value, 'new:')) {
+                $name = str_replace('new:', '', $value);
+                $ingredient = Ingredient::firstOrCreate(['name' => $name]);
+                return $ingredient->id;
+            }
+            return $value;
+        });
+
+        $recipe->ingredients()->sync($ingredientIds);
 
         return redirect('/recipe');
     }
