@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="form-card">
-    <form action="/recipe/store" method="POST">
+    <form action="/recipe/store" method="POST" enctype="multipart/form-data">
         @csrf
         <div>
             <label>レシピ名</label>
@@ -13,6 +13,13 @@
             @error('name')
                 <p class="field-error">{{ $message }}</p>
             @enderror
+        </div>
+        <div>
+        <label>写真</label>
+        <input type="file" name="image" accept="image/*" required>
+        @error('image')
+            <p class="field-error">{{ $message }}</p>
+        @enderror
         </div>
         <div>
             <label>ジャンル</label>

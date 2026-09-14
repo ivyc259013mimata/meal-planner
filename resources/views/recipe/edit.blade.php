@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="form-card">
-        <form action="/recipe/{{ $recipe->id }}/update" method="POST">
+        <form action="/recipe/{{ $recipe->id }}/update" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
                 <label>レシピ名</label>
@@ -13,6 +13,13 @@
                 @error('name')
                     <p class="field-error">{{ $message }}</p>
                 @enderror
+            </div>
+            <div>
+                <label>写真</label>
+                @if ($recipe->image)
+                    <img src="{{ asset('images/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="current-image">
+                @endif
+                <input type="file" name="image" accept="image/*" >
             </div>
             <div>
                 <label>ジャンル</label>

@@ -36,11 +36,14 @@ class RecipeController extends Controller
             'name' => 'required',
             'category' => 'required',
             'dish_type' => 'required',
+            'image' => 'required|image',
         ], [
             'ingredients.required' => '材料を1つ以上選択してください。',
             'name.required' => 'レシピ名を入力してください。',
             'category.required' => 'ジャンルを選択してください。',
             'dish_type.required' => '種類を選択してください。',
+            'image.required' => '写真を選択してください。',
+            'image.image' => '画像ファイルを選択してください。',
         ]);
 
         $recipe = Recipe::create([
@@ -48,6 +51,12 @@ class RecipeController extends Controller
             'category' => $request->category,
             'dish_type' => $request->dish_type,
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('recipe_images', 'public');
+            $recipe->image = basename($path);
+            $recipe->save();
+        }
 
         // 新規タグを、実際の材料として登録し直しつつ、idだけの配列を作る
         $ingredientIds = collect($request->ingredients)->map(function ($value) {
@@ -93,6 +102,12 @@ class RecipeController extends Controller
         $recipe->name = $request->name;
         $recipe->category = $request->category;
         $recipe->dish_type = $request->dish_type;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('recipe_images', 'public');
+            $recipe->image = basename($path);
+        }
+        
         $recipe->save();
 
         // 新規タグを、実際の材料として登録し直しつつ、idだけの配列を作る
@@ -106,6 +121,10 @@ class RecipeController extends Controller
         });
 
         $recipe->ingredients()->sync($ingredientIds);
+
+        session()->flash('message', 'レシピを更新しました');
+
+        return redirect('/recipe');
 
         return redirect('/recipe');
     }

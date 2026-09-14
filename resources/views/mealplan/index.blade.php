@@ -8,6 +8,11 @@
         ↻ 1週間分を自動生成する
     </a>
 
+    <form action="/mealplan/clear" method="POST">
+        @csrf
+        <button type="submit" class="btn-outline">献立をクリア</button>
+    </form>
+
     <h2 class="section-label">今週の献立</h2>
 
     <div class="meal-list">
@@ -19,7 +24,7 @@
                     @foreach ($mealPlan->recipes->sortBy('dish_type') as $recipe)
                         <div class="meal-card__dish">
                             <span class="meal-card__thumb">
-                                <img src="{{ asset('images/curry.png') }}" alt="{{ $recipe->name }}">
+                                <img src="{{ $recipe->image ? asset('storage/recipe_images/' . $recipe->image) : asset('images/curry.png') }}" alt="{{ $recipe->name }}">
                             </span>
                             <span class="meal-card__name">{{ $recipe->name }}</span>
                         </div>

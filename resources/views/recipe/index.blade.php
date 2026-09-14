@@ -22,7 +22,7 @@
         @foreach ($recipes as $recipe)
             <div class="recipe-card">
                 <span class="recipe-card__thumb">
-                    <img src="{{ asset('images/curry.png') }}" alt="{{ $recipe->name }}">
+                    <img src="{{ $recipe->image ? asset('storage/recipe_images/' . $recipe->image) : asset('images/curry.png') }}" alt="{{ $recipe->name }}">
                 </span>
 
                 <div class="recipe-card__info">

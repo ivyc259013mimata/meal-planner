@@ -10,14 +10,16 @@
     <header class="app-header">
         <button class="app-header__menu-btn" id="menuBtn">≡</button>
         <span class="app-header__icon">🍴</span>
-        <h1 class="app-header__title">@yield('title','献立プランナー')</h1>
+        <h1 class="app-header__title">@yield('title', '献立プランナー')</h1>
     </header>
-    
-    <nav class="app-nav" id="appNav">
-        <a href="/mealplan">献立プランナー</a>
-        <a href="/shoppinglist">買い物リスト</a>
-        <a href="/recipe">レシピ一覧</a>
-        <a href="/recipe/create">レシピを登録</a>
+
+    <nav class="app-nav-drawer" id="appNav">
+        <ul class="app-nav-drawer__list">
+            <li><a href="/mealplan">献立プランナー</a></li>
+            <li><a href="/shoppinglist">買い物リスト</a></li>
+            <li><a href="/recipe">メニュー一覧</a></li>
+            <li><a href="/recipe/create">メニューを登録</a></li>
+        </ul>
     </nav>
 
     <main class="app-main">
@@ -27,9 +29,13 @@
     <script>
         const menuBtn = document.getElementById('menuBtn');
         const appNav = document.getElementById('appNav');
+        const headerTitle = document.querySelector('.app-header__icon');
+        const headerText = document.querySelector('.app-header__title');
 
-        menuBtn.addEventListener('click',function() {
+        menuBtn.addEventListener('click', function () {
             appNav.classList.toggle('is-open');
+            headerTitle.classList.toggle('is-hidden');
+            headerText.classList.toggle('is-hidden');
         });
     </script>
 </body>

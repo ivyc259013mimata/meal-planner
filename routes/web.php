@@ -23,3 +23,4 @@ Route::post('/ingredient/{id}/toggle', [IngredientController::class, 'toggleChec
 Route::get('/mealplan', [MealPlanController::class,'index']);
 Route::get('/mealplan/generate', [MealPlanController::class, 'generate']);
 Route::get('/shoppinglist', [MealPlanController::class, 'shoppingList']);
+Route::post('/mealplan/clear', [MealPlanController::class, 'clear']);

@@ -73,5 +73,16 @@ class MealPlanController extends Controller
         return view('mealplan.index', compact('mealPlans'));
     }
 
+    public function clear()
+    {
+        $mealPlans = MealPlan::all();
+        foreach ($mealPlans as $mealPlan) {
+            $mealPlan->recipes()->detach();
+            $mealPlan->delete();
+        }
+
+        return redirect('/mealplan');
+    }
+
     
 }
